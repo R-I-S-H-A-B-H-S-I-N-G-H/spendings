@@ -1,0 +1,58 @@
+{
+  "hash": "68ed1660",
+  "configHash": "9b11eac5",
+  "lockfileHash": "252b0ffd",
+  "browserHash": "a1434cf9",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "705ce9c4",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "7566f64f",
+      "needsInterop": true
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "6ae4fdea",
+      "needsInterop": false
+    },
+    "react-dropdown": {
+      "src": "../../node_modules/react-dropdown/dist/index.js",
+      "file": "react-dropdown.js",
+      "fileHash": "c05a1362",
+      "needsInterop": true
+    },
+    "moment": {
+      "src": "../../node_modules/moment/dist/moment.js",
+      "file": "moment.js",
+      "fileHash": "8600456e",
+      "needsInterop": false
+    },
+    "react-range": {
+      "src": "../../node_modules/react-range/lib/index.js",
+      "file": "react-range.js",
+      "fileHash": "f4d06f96",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-6UQLG4H2": {
+      "file": "chunk-6UQLG4H2.js"
+    },
+    "chunk-PHG4M3RF": {
+      "file": "chunk-PHG4M3RF.js"
+    },
+    "chunk-TXI3HGC7": {
+      "file": "chunk-TXI3HGC7.js"
+    },
+    "chunk-7D4SUZUM": {
+      "file": "chunk-7D4SUZUM.js"
+    }
+  }
+}

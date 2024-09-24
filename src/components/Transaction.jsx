@@ -9,9 +9,9 @@ export default function Transaction(props) {
 	}
 
 	return (
-		<div style={{ margin: ".5rem", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-			<span style={{ flex: 2 }}>{comment}</span>
-			<span style={{ flex: 2, fontWeight: "bold", color: isCredit() ? "darkgreen" : "darkred" }}>{`${!isCredit() ? "-" : "+"}${amount}`}</span>
+		<div style={{ marginTop: ".5rem", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "5px" }}>
+			<span style={{ flex: 1.5 }}>{comment}</span>
+			<span style={{ flex: 1, fontWeight: "bold", color: isCredit() ? "darkgreen" : "darkred" }}>{`${!isCredit() ? "-" : "+"}${amount}`}</span>
 			<span style={{ flex: 1 }}>{moment(date).fromNow()}</span>
 		</div>
 	);

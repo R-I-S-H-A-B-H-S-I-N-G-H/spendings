@@ -90,7 +90,7 @@ function App() {
 				justifyContent: "center",
 			}}
 		>
-			<div style={{ display: "flex", gap: "10px", justifyContent: "center", width: "100%", marginBottom: "10px" }}>
+			<div style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", width: "100%", marginBottom: "10px" }}>
 				<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
 				<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
 				<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
