@@ -106,9 +106,8 @@ function App() {
 				>
 					<label>Enter Tag Name</label>
 					<Input
-						styles={{ fontsize: "15px" }}
+						style={{ fontSize: "15px" }}
 						value={tagObj.name}
-						style={{ width: "200px" }}
 						placeholder="Enter a Tag Name"
 						onChange={(e) => {
 							setTagObj({ ...tagObj, name: e.target.value });
@@ -117,9 +116,8 @@ function App() {
 					<label>Enter Tag Amount</label>
 
 					<InputNumber
-						styles={{ fontsize: "15px" }}
 						value={tagObj.amount}
-						style={{ width: "200px" }}
+						style={{ width: "200px", fontSize: "15px" }}
 						placeholder="Enter a Tag Amount"
 						type="number"
 						onChange={(num) => {
@@ -140,12 +138,12 @@ function App() {
 					<label>Enter Name</label>
 					<Input
 						value={incomeObject.name}
-						style={{ width: "200px", fontsize: "15px" }}
+						style={{ width: "200px", fontSize: "15px" }}
 						placeholder="Enter a Name"
 						onChange={(e) => setIncomeObject({ ...incomeObject, name: e.target.value })}
 					/>
 					<label>Enter Amount</label>
-					<InputNumber style={{ width: "200px", fontsize: "15px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
+					<InputNumber style={{ width: "200px", fontSize: "15px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
 				</div>
 			</Modal>
 
@@ -158,12 +156,17 @@ function App() {
 					}}
 				>
 					<label>Enter Name</label>
-					<Input value={expenseObject.name} style={{ width: "200px" }} placeholder="Enter a Name" onChange={(e) => setExpenseObject({ ...expenseObject, name: e.target.value })} />
+					<Input
+						value={expenseObject.name}
+						style={{ width: "200px", fontSize: "15px" }}
+						placeholder="Enter a Name"
+						onChange={(e) => setExpenseObject({ ...expenseObject, name: e.target.value })}
+					/>
 
 					<label>Enter Amount</label>
 					<InputNumber
 						value={expenseObject.amount}
-						style={{ width: "200px", fontsize: "15px" }}
+						style={{ width: "200px", fontSize: "15px" }}
 						placeholder="Enter a Amount"
 						type="number"
 						onChange={(num) => setExpenseObject({ ...expenseObject, amount: num })}
