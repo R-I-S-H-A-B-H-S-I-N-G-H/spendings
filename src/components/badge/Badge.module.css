@@ -1,0 +1,16 @@
+.container {
+	height: 6rem;
+	border-radius: 1rem;
+	width: 15rem;
+}
+.heading {
+	color: #747a87;
+	padding: 1rem 0rem 0rem 1rem;
+	font-weight: bolder;
+}
+.mainContent {
+	color: #404356;
+	font-weight: bold;
+	font-size: x-large;
+	padding: 0.5rem 0rem 0rem 1rem;
+}
