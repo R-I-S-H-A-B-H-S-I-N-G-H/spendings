@@ -106,7 +106,7 @@ function App() {
 				>
 					<label>Enter Tag Name</label>
 					<Input
-						style={{ fontSize: "15px" }}
+						style={{ fontSize: "17px" }}
 						value={tagObj.name}
 						placeholder="Enter a Tag Name"
 						onChange={(e) => {
@@ -117,7 +117,7 @@ function App() {
 
 					<InputNumber
 						value={tagObj.amount}
-						style={{ width: "200px", fontSize: "15px" }}
+						style={{ width: "200px", fontSize: "17px" }}
 						placeholder="Enter a Tag Amount"
 						type="number"
 						onChange={(num) => {
@@ -138,12 +138,12 @@ function App() {
 					<label>Enter Name</label>
 					<Input
 						value={incomeObject.name}
-						style={{ width: "200px", fontSize: "15px" }}
+						style={{ width: "200px", fontSize: "17px" }}
 						placeholder="Enter a Name"
 						onChange={(e) => setIncomeObject({ ...incomeObject, name: e.target.value })}
 					/>
 					<label>Enter Amount</label>
-					<InputNumber style={{ width: "200px", fontSize: "15px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
+					<InputNumber style={{ width: "200px", fontSize: "17px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
 				</div>
 			</Modal>
 
@@ -158,7 +158,7 @@ function App() {
 					<label>Enter Name</label>
 					<Input
 						value={expenseObject.name}
-						style={{ width: "200px", fontSize: "15px" }}
+						style={{ width: "200px", fontSize: "17px" }}
 						placeholder="Enter a Name"
 						onChange={(e) => setExpenseObject({ ...expenseObject, name: e.target.value })}
 					/>
@@ -166,7 +166,7 @@ function App() {
 					<label>Enter Amount</label>
 					<InputNumber
 						value={expenseObject.amount}
-						style={{ width: "200px", fontSize: "15px" }}
+						style={{ width: "200px", fontSize: "17px" }}
 						placeholder="Enter a Amount"
 						type="number"
 						onChange={(num) => setExpenseObject({ ...expenseObject, amount: num })}
