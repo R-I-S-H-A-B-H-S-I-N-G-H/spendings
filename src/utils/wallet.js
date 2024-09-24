@@ -137,13 +137,13 @@ export default class wallet {
 	}
 
 	static saveWalletToLocalStorage(wallet) {
-		localStorage.setItem("wallet2", JSON.stringify(wallet));
+		localStorage.setItem("wallet", JSON.stringify(wallet));
 	}
 
 	static getWalletFromLocalStorage() {
 		try {
 			// throw new Error("Not Implemented");
-			const walletdata = JSON.parse(localStorage.getItem("wallet2"));
+			const walletdata = JSON.parse(localStorage.getItem("wallet"));
 			return Object.assign(new wallet("helix"), walletdata);
 		} catch (error) {
 			console.error(error);
