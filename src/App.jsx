@@ -150,7 +150,7 @@ function App() {
 						gap: "10px",
 					}}
 				>
-					<label>Enter Amount</label>
+					<label>Enter Name</label>
 					<Input value={expenseObject.name} style={{ width: "200px" }} placeholder="Enter a Name" onChange={(e) => setExpenseObject({ ...expenseObject, name: e.target.value })} />
 
 					<label>Enter Amount</label>
