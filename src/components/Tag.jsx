@@ -4,7 +4,7 @@ import ProgressLine from "./progressLine/ProgressLine";
 import Transaction from "./Transaction";
 import Slider from "./slider/Slider";
 
-import { Tag as TagAnt } from "antd";
+import { Tag as TagAnt, Divider } from "antd";
 export default function Tag(props) {
 	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5 } = props;
 	if (!Array.isArray(transactions)) throw new Error("Transactions must be an array");
@@ -82,6 +82,7 @@ export default function Tag(props) {
 					<Transaction key={transaction.id} {...transaction} />
 				))}
 			</div>
+			<Divider />
 		</div>
 	);
 }
