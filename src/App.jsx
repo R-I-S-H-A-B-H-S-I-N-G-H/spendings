@@ -11,11 +11,7 @@ import { InputNumber, Input, Button, Modal, AutoComplete } from "antd";
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
 	const [triggerRenderVal, setTriggerRenderVal] = useState(false);
-
-	const [selectedLabel, setSelectedLabel] = useState(null);
-	const [amount, setAmount] = useState(0);
-
-	const [tagObj, setTagObj] = useState({ name: "", amount, type: transactionEnum.DEBIT });
+	const [tagObj, setTagObj] = useState({ name: "", amount: 0, type: transactionEnum.DEBIT });
 	const [tagCreateModal, setTagCreateModal] = useState(false);
 	const [incomeCreateModal, setIncomeCreateModal] = useState(false);
 	const [expenseCreateModal, setExpenseCreateModal] = useState(false);
@@ -83,7 +79,7 @@ function App() {
 	}
 
 	function resetTagObject() {
-		setTagObj({ name: "", amount, type: transactionEnum.DEBIT });
+		setTagObj({ name: "", amount: 0, type: transactionEnum.DEBIT });
 	}
 
 	return (
