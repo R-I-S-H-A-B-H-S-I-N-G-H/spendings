@@ -6,7 +6,7 @@ import Tag from "./utils/tag";
 import TagComp from "./components/Tag";
 import CustomDropdown from "./components/dropdown";
 import Badge from "./components/badge/Badge";
-import { InputNumber, Input, Button, Modal, AutoComplete } from "antd";
+import { InputNumber, Input, Button, Modal } from "antd";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -88,13 +88,11 @@ function App() {
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
-				// alignItems: "center",
-				gap: "10px",
 			}}
 		>
-			<div style={{ display: "flex", gap: "10px" }}>
+			<div style={{ display: "flex", gap: "10px", justifyContent: "center", width: "100%", marginBottom: "10px" }}>
 				<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
-				<Badge type={"secondary"} heading={"Current Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
+				<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
 				<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
 			</div>
 
@@ -181,6 +179,7 @@ function App() {
 					display: "flex",
 					justifyContent: "center",
 					gap: "10px",
+					margin: "10px",
 				}}
 			>
 				<Button color="primary" variant="filled" style={{ width: "200px" }} onClick={() => setTagCreateModal(true)}>

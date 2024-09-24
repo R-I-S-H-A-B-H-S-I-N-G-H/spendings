@@ -39,7 +39,11 @@ export default function Tag(props) {
 	}
 
 	return (
-		<>
+		<div
+			style={{
+				margin: ".5rem",
+			}}
+		>
 			{!isCredit() && (
 				<>
 					<ProgressLine
@@ -53,7 +57,7 @@ export default function Tag(props) {
 						]}
 					/>
 
-					<Slider
+					{/* <Slider
 						STEP={1}
 						MIN={100}
 						MAX={totalIncome}
@@ -63,13 +67,21 @@ export default function Tag(props) {
 
 							updateTagAmountHandler(parseInt(e[0]));
 						}}
-					/>
+					/> */}
 				</>
 			)}
 
-			{getTagTransactions().map((transaction) => (
-				<Transaction key={transaction.id} {...transaction} />
-			))}
-		</>
+			{isCredit() && <div style={{ fontSize: "1.2rem" }}>Income: {amount}</div>}
+
+			<div
+				style={{
+					padding: "1rem",
+				}}
+			>
+				{getTagTransactions().map((transaction) => (
+					<Transaction key={transaction.id} {...transaction} />
+				))}
+			</div>
+		</div>
 	);
 }
