@@ -88,6 +88,7 @@ function App() {
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
+				padding: "2rem",
 			}}
 		>
 			<div style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", width: "100%", marginBottom: "10px" }}>
