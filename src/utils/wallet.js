@@ -18,8 +18,12 @@ export default class wallet {
 		this.tags.push(this.defaultIncomeTag);
 	}
 
-	getTransactions() {
-		return this.transactions;
+	getTransactions(month = new Date().getMonth(), year = new Date().getFullYear()) {
+		return this.transactions.filter((transaction) => {
+			const transactionDate = new Date(transaction.date);
+
+			return transactionDate.getMonth() == month && transactionDate.getFullYear() == year;
+		});
 	}
 
 	verifyTransaction(tag, transaction) {
@@ -62,12 +66,12 @@ export default class wallet {
 
 		transaction.addTag(tag);
 		this.verifyTransaction(tag, transaction);
-		this.transactions.push(transaction);
+		this.getTransactions().push(transaction);
 	}
 
 	addIncome(transaction, tag) {
 		transaction.addTag(tag);
-		this.transactions.push(transaction);
+		this.getTransactions().push(transaction);
 	}
 
 	addTag(tag) {
@@ -86,7 +90,7 @@ export default class wallet {
 
 	getTotalIncome() {
 		let amount = 0;
-		for (const ele of this.transactions) {
+		for (const ele of this.getTransactions()) {
 			if (ele.type === transactionEnum.DEBIT) continue;
 			amount += ele.amount;
 		}
@@ -95,7 +99,7 @@ export default class wallet {
 
 	getTotalExpense() {
 		let amount = 0;
-		for (const ele of this.transactions) {
+		for (const ele of this.getTransactions()) {
 			if (ele.type === transactionEnum.CREDIT) continue;
 			amount += ele.amount;
 		}
@@ -113,7 +117,7 @@ export default class wallet {
 
 	getTagAmount(tag) {
 		let amount = 0;
-		for (const ele of this.transactions) {
+		for (const ele of this.getTransactions()) {
 			if (ele.tag.id !== tag.id) continue;
 			amount += ele.amount;
 		}
