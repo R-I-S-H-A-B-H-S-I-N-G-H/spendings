@@ -66,12 +66,12 @@ export default class wallet {
 
 		transaction.addTag(tag);
 		this.verifyTransaction(tag, transaction);
-		this.getTransactions().push(transaction);
+		this.transactions.push(transaction);
 	}
 
 	addIncome(transaction, tag) {
 		transaction.addTag(tag);
-		this.getTransactions().push(transaction);
+		this.transactions.push(transaction);
 	}
 
 	addTag(tag) {
