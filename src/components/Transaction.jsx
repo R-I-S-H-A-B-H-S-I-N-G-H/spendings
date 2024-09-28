@@ -1,5 +1,6 @@
 import moment from "moment";
 import transactionEnum from "../utils/enums/transactionEnum";
+import { Text } from "@radix-ui/themes";
 
 export default function Transaction(props) {
 	const { amount, type, comment, tag, date } = props;
@@ -10,9 +11,9 @@ export default function Transaction(props) {
 
 	return (
 		<div style={{ marginTop: ".5rem", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "5px" }}>
-			<span style={{ flex: 1.5 }}>{comment}</span>
-			<span style={{ flex: 1, fontWeight: "bold", color: isCredit() ? "darkgreen" : "darkred" }}>{`${!isCredit() ? "-" : "+"}${amount}`}</span>
-			<span style={{ flex: 1 }}>{moment(date).fromNow()}</span>
+			<Text style={{ flex: 1.5 }}>{comment}</Text>
+			<Text weight={"bold"} color={isCredit() ? "green" : "red"} style={{ flex: 1 }}>{`${!isCredit() ? "-" : "+"}${amount}`}</Text>
+			<Text style={{ flex: 1 }}>{moment(date).fromNow()}</Text>
 		</div>
 	);
 }

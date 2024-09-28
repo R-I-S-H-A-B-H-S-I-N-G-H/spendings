@@ -50,7 +50,7 @@ export default function Tag(props) {
 			<Flex align={"center"} justify={"between"}>
 				{!isCredit() && (
 					<>
-						<Badge size={"3"} color="red">{`${name} ${getTagAmount()}`}</Badge>
+						<Badge size={"3"} color="amber">{`${name} ${getTagAmount()}`}</Badge>
 						<Button disabled={!isSelectedDateCurrentDate} size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
 							Add {name} Expense
 						</Button>

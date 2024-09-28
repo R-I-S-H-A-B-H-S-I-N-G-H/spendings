@@ -7,7 +7,7 @@ import { Theme } from "@radix-ui/themes";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<Theme radius="large" scaling="95%">
+		<Theme appearance="dark" radius="large" scaling="95%">
 			<App />
 		</Theme>
 	</StrictMode>,
