@@ -16,13 +16,14 @@ export default class wallet {
 		this.tags = [];
 		this.defaultIncomeTag = new Tag(Infinity, transactionEnum.CREDIT, "income");
 		this.tags.push(this.defaultIncomeTag);
+		this.dateFilter = { month: new Date().getMonth(), year: new Date().getFullYear() };
 	}
 
-	getTransactions(month = new Date().getMonth(), year = new Date().getFullYear()) {
+	getTransactions() {
 		return this.transactions.filter((transaction) => {
 			const transactionDate = new Date(transaction.date);
 
-			return transactionDate.getMonth() == month && transactionDate.getFullYear() == year;
+			return transactionDate.getMonth() == this.dateFilter.month && transactionDate.getFullYear() == this.dateFilter.year;
 		});
 	}
 

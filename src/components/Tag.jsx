@@ -7,7 +7,7 @@ import { Badge, Button, Flex } from "@radix-ui/themes";
 
 import { Tag as TagAnt, Divider } from "antd";
 export default function Tag(props) {
-	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5, addExpense = () => {} } = props;
+	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5, addExpense = () => {}, isSelectedDateCurrentDate } = props;
 	if (!Array.isArray(transactions)) throw new Error("Transactions must be an array");
 	if (!totalIncome) totalIncome = 1e6;
 
@@ -51,7 +51,7 @@ export default function Tag(props) {
 				{!isCredit() && (
 					<>
 						<Badge size={"3"} color="red">{`${name} ${getTagAmount()}`}</Badge>
-						<Button size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
+						<Button disabled={!isSelectedDateCurrentDate} size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
 							Add {name} Expense
 						</Button>
 					</>

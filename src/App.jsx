@@ -7,7 +7,8 @@ import TagComp from "./components/Tag";
 import CustomDropdown from "./components/dropdown";
 import Badge from "./components/badge/Badge";
 import { InputNumber, Input, Modal } from "antd";
-import { Button, Card } from "@radix-ui/themes";
+import { Button, Card, Flex, Grid } from "@radix-ui/themes";
+import MonthToggle from "./components/monthToggle/MonthToggle";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -18,6 +19,7 @@ function App() {
 	const [expenseCreateModal, setExpenseCreateModal] = useState(false);
 	const [expenseObject, setExpenseObject] = useState({});
 	const [incomeObject, setIncomeObject] = useState({});
+	const [selectedDate, setSelectedDate] = useState(new Date());
 
 	useEffect(() => {
 		if (walletObj) return;
@@ -30,6 +32,14 @@ function App() {
 			wallet.saveWalletToLocalStorage(walletObjTmp);
 		}, 100);
 	});
+
+	useEffect(() => {
+		if (!walletObj) return;
+		walletObj.dateFilter.month = selectedDate.getMonth();
+		walletObj.dateFilter.year = selectedDate.getFullYear();
+		setTriggerRenderVal((prev) => !prev);
+	}, [selectedDate]);
+
 	if (!walletObj) return <>Loading</>;
 
 	function triggerRender() {
@@ -88,6 +98,10 @@ function App() {
 		setTagObj({ name: "", amount: 0, type: transactionEnum.DEBIT });
 	}
 
+	function isSelectedDateCurrentDate() {
+		return selectedDate.getMonth() === new Date().getMonth() && selectedDate.getFullYear() === new Date().getFullYear();
+	}
+
 	return (
 		<div
 			style={{
@@ -97,11 +111,13 @@ function App() {
 				padding: "2rem",
 			}}
 		>
-			<div style={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", width: "100%", marginBottom: "10px" }}>
-				<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
-				<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
-				<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
-			</div>
+			<Flex align={"center"} justify={"center"}>
+				<Grid columns={{ base: "1", md: "3" }} gap="3" rows={{ base: "auto", md: "repeat(2, 64px)" }} width="auto">
+					<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
+					<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
+					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
+				</Grid>
+			</Flex>
 
 			<Modal title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
 				<div
@@ -200,11 +216,11 @@ function App() {
 					margin: "10px",
 				}}
 			>
-				<Button size={"3"} variant="soft" color="purple" onClick={() => setTagCreateModal(true)}>
+				<Button disabled={!isSelectedDateCurrentDate()} size={"3"} variant="soft" color="purple" onClick={() => setTagCreateModal(true)}>
 					Add Tag
 				</Button>
 
-				<Button size={"3"} variant="soft" color="green" onClick={() => setIncomeCreateModal(true)}>
+				<Button disabled={!isSelectedDateCurrentDate()} size={"3"} variant="soft" color="green" onClick={() => setIncomeCreateModal(true)}>
 					Add Income
 				</Button>
 
@@ -212,6 +228,8 @@ function App() {
 					Add Expense
 				</Button> */}
 			</div>
+
+			<MonthToggle date={selectedDate} onChange={setSelectedDate} />
 
 			{walletObj.getTags().map((tag) => {
 				return (
@@ -225,6 +243,7 @@ function App() {
 						transactions={walletObj.getTransactions()}
 						updateTagAmount={updateTagAmount}
 						addExpense={onAddExpenseHandler}
+						isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
 					/>
 				);
 			})}
