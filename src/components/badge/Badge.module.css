@@ -2,9 +2,10 @@
 	height: 6rem;
 	border-radius: 1rem;
 	width: 15rem;
+	
 }
 .heading {
-	color: #747a87;
+	/* color: #747a87; */
 	padding: 1rem 0rem 0rem 1rem;
 	font-weight: bolder;
 }
