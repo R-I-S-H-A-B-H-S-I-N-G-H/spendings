@@ -3,10 +3,11 @@ import transactionEnum from "../utils/enums/transactionEnum";
 import ProgressLine from "./progressLine/ProgressLine";
 import Transaction from "./Transaction";
 import Slider from "./slider/Slider";
+import { Badge, Button, Flex } from "@radix-ui/themes";
 
 import { Tag as TagAnt, Divider } from "antd";
 export default function Tag(props) {
-	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5 } = props;
+	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5, addExpense = () => {} } = props;
 	if (!Array.isArray(transactions)) throw new Error("Transactions must be an array");
 	if (!totalIncome) totalIncome = 1e6;
 
@@ -46,8 +47,17 @@ export default function Tag(props) {
 				margin: ".5rem",
 			}}
 		>
-			{!isCredit() && <TagAnt color="error">{`${name} ${getTagAmount()}`}</TagAnt>}
-			{isCredit() && <TagAnt color="green">{`${name} ${getTagAmount()}`}</TagAnt>}
+			<Flex align={"center"} justify={"between"}>
+				{!isCredit() && (
+					<>
+						<Badge size={"3"} color="red">{`${name} ${getTagAmount()}`}</Badge>
+						<Button size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
+							Add {name} Expense
+						</Button>
+					</>
+				)}
+				{isCredit() && <Badge size={"3"} color="green">{`${name} ${getTagAmount()}`}</Badge>}
+			</Flex>
 			{!isCredit() && (
 				<>
 					<ProgressLine

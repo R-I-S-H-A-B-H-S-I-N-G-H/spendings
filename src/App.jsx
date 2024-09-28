@@ -6,7 +6,8 @@ import Tag from "./utils/tag";
 import TagComp from "./components/Tag";
 import CustomDropdown from "./components/dropdown";
 import Badge from "./components/badge/Badge";
-import { InputNumber, Input, Button, Modal } from "antd";
+import { InputNumber, Input, Modal } from "antd";
+import { Button, Card } from "@radix-ui/themes";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -43,6 +44,11 @@ function App() {
 		walletObj.addTransaction(transaction, expenseObject.tag);
 		closeExpenseModal();
 		triggerRender();
+	}
+
+	function onAddExpenseHandler(tagId) {
+		setExpenseObject({ tag: tagId, amount: null, name: null });
+		setExpenseCreateModal(true);
 	}
 
 	function addIncome() {
@@ -173,6 +179,7 @@ function App() {
 						onChange={(num) => setExpenseObject({ ...expenseObject, amount: num })}
 					/>
 					<CustomDropdown
+						value={{ value: expenseObject.tag, label: walletObj.getTags().find((ele) => ele.id === expenseObject.tag)?.name }}
 						options={walletObj
 							.getTags()
 							.filter((ele) => ele.type === transactionEnum.DEBIT)
@@ -193,17 +200,17 @@ function App() {
 					margin: "10px",
 				}}
 			>
-				<Button color="primary" variant="filled" style={{ width: "200px" }} onClick={() => setTagCreateModal(true)}>
+				<Button size={"3"} variant="soft" color="purple" onClick={() => setTagCreateModal(true)}>
 					Add Tag
 				</Button>
 
-				<Button style={{ width: "200px" }} onClick={() => setIncomeCreateModal(true)}>
+				<Button size={"3"} variant="soft" color="green" onClick={() => setIncomeCreateModal(true)}>
 					Add Income
 				</Button>
 
-				<Button color="danger" variant="filled" style={{ width: "200px" }} onClick={() => setExpenseCreateModal(true)}>
+				{/* <Button size={"3"} variant="soft" color="red" onClick={() => setExpenseCreateModal(true)}>
 					Add Expense
-				</Button>
+				</Button> */}
 			</div>
 
 			{walletObj.getTags().map((tag) => {
@@ -217,6 +224,7 @@ function App() {
 						name={tag.name}
 						transactions={walletObj.getTransactions()}
 						updateTagAmount={updateTagAmount}
+						addExpense={onAddExpenseHandler}
 					/>
 				);
 			})}
