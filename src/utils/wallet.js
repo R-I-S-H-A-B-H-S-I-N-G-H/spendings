@@ -27,6 +27,14 @@ export default class wallet {
 		});
 	}
 
+	deleteTransaction(id) {
+		this.transactions = this.transactions.filter((transaction) => {
+			console.log(transaction);
+
+			return transaction.id != id;
+		});
+	}
+
 	verifyTransaction(tag, transaction) {
 		if (!(transaction instanceof Transaction)) {
 			throw new Error("Transaction must be instance of Transaction");

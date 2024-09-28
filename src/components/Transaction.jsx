@@ -1,9 +1,9 @@
 import moment from "moment";
 import transactionEnum from "../utils/enums/transactionEnum";
-import { Text } from "@radix-ui/themes";
+import { Badge, Button, Text } from "@radix-ui/themes";
 
 export default function Transaction(props) {
-	const { amount, type, comment, tag, date } = props;
+	const { amount, type, comment, tag, date, onTransactionDel, id } = props;
 
 	function isCredit() {
 		return type == transactionEnum.CREDIT;
@@ -14,6 +14,9 @@ export default function Transaction(props) {
 			<Text style={{ flex: 1.5 }}>{comment}</Text>
 			<Text weight={"bold"} color={isCredit() ? "green" : "red"} style={{ flex: 1 }}>{`${!isCredit() ? "-" : "+"}${amount}`}</Text>
 			<Text style={{ flex: 1 }}>{moment(date).fromNow()}</Text>
+			<Button variant="outline" color="red" onClick={() => onTransactionDel(id)}>
+				{"-"}
+			</Button>
 		</div>
 	);
 }

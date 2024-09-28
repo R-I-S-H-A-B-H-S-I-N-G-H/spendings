@@ -102,6 +102,11 @@ function App() {
 		return selectedDate.getMonth() === new Date().getMonth() && selectedDate.getFullYear() === new Date().getFullYear();
 	}
 
+	function onTransactionDelHandler(transactionId) {
+		walletObj.deleteTransaction(transactionId);
+		triggerRender();
+	}
+
 	return (
 		<div
 			style={{
@@ -244,6 +249,7 @@ function App() {
 						updateTagAmount={updateTagAmount}
 						addExpense={onAddExpenseHandler}
 						isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
+						onTransactionDel={onTransactionDelHandler}
 					/>
 				);
 			})}
