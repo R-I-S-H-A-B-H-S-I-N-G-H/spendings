@@ -117,11 +117,11 @@ function App() {
 			}}
 		>
 			<Flex align={"center"} justify={"center"}>
-				<Grid columns={{ base: "1", md: "3" }} gap="3" rows={{ base: "auto", md: "repeat(2, 64px)" }} width="auto">
+				<Flex direction={window.innerWidth < 700 ? "column" : "row"} align={"center"} justify={"center"} gap="3">
 					<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
 					<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
 					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
-				</Grid>
+				</Flex>
 			</Flex>
 
 			<Modal title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
