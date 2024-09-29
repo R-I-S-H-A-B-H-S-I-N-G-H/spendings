@@ -6,9 +6,10 @@ import Tag from "./utils/tag";
 import TagComp from "./components/Tag";
 import CustomDropdown from "./components/dropdown";
 import Badge from "./components/badge/Badge";
-import { InputNumber, Input, Modal } from "antd";
-import { Button, Card, Flex, Grid } from "@radix-ui/themes";
+import { InputNumber, Input } from "antd";
+import { Button, Card, Container, Flex, Grid, Text } from "@radix-ui/themes";
 import MonthToggle from "./components/monthToggle/MonthToggle";
+import Modal from "./components/modal/modal";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -107,6 +108,10 @@ function App() {
 		triggerRender();
 	}
 
+	function addIncomeHandler() {
+		setIncomeCreateModal(true);
+	}
+
 	return (
 		<div
 			style={{
@@ -156,23 +161,17 @@ function App() {
 			</Modal>
 
 			<Modal title="Add Income" open={incomeCreateModal} onOk={addIncome} onCancel={closeIncomeModal}>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: "10px",
-					}}
-				>
-					<label>Enter Name</label>
+				<Flex direction="column" style={{ gap: "6px" }}>
+					<Text weight="medium">Enter Name</Text>
 					<Input
 						value={incomeObject.name}
 						style={{ width: "200px", fontSize: "17px" }}
 						placeholder="Enter a Name"
 						onChange={(e) => setIncomeObject({ ...incomeObject, name: e.target.value })}
 					/>
-					<label>Enter Amount</label>
+					<Text medium="bold">Enter Amount</Text>
 					<InputNumber style={{ width: "200px", fontSize: "17px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
-				</div>
+				</Flex>
 			</Modal>
 
 			<Modal title="Add Expense" open={expenseCreateModal} onOk={addExpense} onCancel={closeExpenseModal}>
@@ -225,9 +224,9 @@ function App() {
 					Add Tag
 				</Button>
 
-				<Button disabled={!isSelectedDateCurrentDate()} size={"3"} variant="soft" color="green" onClick={() => setIncomeCreateModal(true)}>
+				{/* <Button disabled={!isSelectedDateCurrentDate()} size={"3"} variant="soft" color="green" onClick={() => setIncomeCreateModal(true)}>
 					Add Income
-				</Button>
+				</Button> */}
 
 				{/* <Button size={"3"} variant="soft" color="red" onClick={() => setExpenseCreateModal(true)}>
 					Add Expense
@@ -250,6 +249,7 @@ function App() {
 						addExpense={onAddExpenseHandler}
 						isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
 						onTransactionDel={onTransactionDelHandler}
+						addIncome={addIncomeHandler}
 					/>
 				);
 			})}
