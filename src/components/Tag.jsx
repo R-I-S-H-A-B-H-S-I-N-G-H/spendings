@@ -3,9 +3,9 @@ import transactionEnum from "../utils/enums/transactionEnum";
 import ProgressLine from "./progressLine/ProgressLine";
 import Transaction from "./Transaction";
 import Slider from "./slider/Slider";
-import { Badge, Button, Flex } from "@radix-ui/themes";
+import { Badge, Button, Flex, Separator } from "@radix-ui/themes";
 
-import { Tag as TagAnt, Divider } from "antd";
+import { Divider, Tag as TagAnt } from "antd";
 export default function Tag(props) {
 	let { amount, name, id, transactions = [], type, updateTagAmount = () => {}, totalIncome = 1e5, addExpense = () => {}, isSelectedDateCurrentDate, onTransactionDel } = props;
 	if (!Array.isArray(transactions)) throw new Error("Transactions must be an array");
@@ -58,7 +58,7 @@ export default function Tag(props) {
 				)}
 				{isCredit() && <Badge size={"3"} color="green">{`${name} ${getTagAmount()}`}</Badge>}
 			</Flex>
-			{!isCredit() && (
+			{getTagTransactions().length > 0 && !isCredit() && (
 				<>
 					<ProgressLine
 						// label={`${name} ${getTagAmount()}`}
@@ -92,7 +92,15 @@ export default function Tag(props) {
 					<Transaction key={transaction.id} {...transaction} onTransactionDel={onTransactionDel} />
 				))}
 			</div>
-			<Divider />
+			{/* <Divider /> */}
+
+			<Separator
+				style={{
+					width: "100%",
+					margin: "2rem 0rem",
+				}}
+				color="#F9F9F9"
+			/>
 		</div>
 	);
 }
