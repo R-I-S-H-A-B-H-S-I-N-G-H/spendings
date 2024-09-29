@@ -1,6 +1,6 @@
 import { Button, Container, Flex, Heading } from "@radix-ui/themes";
 import styles from "./Modal.module.css";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 
 export default function Modal({ open = true, onOk = () => {}, onCancel = () => {}, children, title = "modal Title" }) {
