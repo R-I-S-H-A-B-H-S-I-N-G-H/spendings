@@ -21,6 +21,8 @@ function App() {
 	const [expenseObject, setExpenseObject] = useState({});
 	const [incomeObject, setIncomeObject] = useState({});
 	const [selectedDate, setSelectedDate] = useState(new Date());
+	const [transactionDelModal, setTransactionDelModal] = useState(false);
+	const [deleteTransactionId, setDeleteTransactionId] = useState();
 
 	useEffect(() => {
 		if (walletObj) return;
@@ -104,12 +106,19 @@ function App() {
 	}
 
 	function onTransactionDelHandler(transactionId) {
-		walletObj.deleteTransaction(transactionId);
-		triggerRender();
+		// walletObj.deleteTransaction(transactionId);
+		// triggerRender();
+		setDeleteTransactionId(transactionId);
+		setTransactionDelModal(true);
 	}
 
 	function addIncomeHandler() {
 		setIncomeCreateModal(true);
+	}
+
+	function closeDelTransactionModal() {
+		setDeleteTransactionId();
+		setTransactionDelModal(false);
 	}
 
 	return (
@@ -128,6 +137,18 @@ function App() {
 					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
 				</Flex>
 			</Flex>
+
+			<ModalComp
+				open={transactionDelModal}
+				title="Delete transaction?"
+				onOk={() => {
+					walletObj.deleteTransaction(deleteTransactionId);
+					closeDelTransactionModal();
+				}}
+				onCancel={() => {
+					closeDelTransactionModal();
+				}}
+			/>
 
 			<ModalComp title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
 				<div

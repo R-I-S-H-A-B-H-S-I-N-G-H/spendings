@@ -9,6 +9,10 @@ function ModalComp({ open = true, onOk = () => {}, onCancel = () => {}, children
 			if (e.key === "Escape") {
 				onCancel();
 			}
+
+			if (e.key === "Enter") {
+				onOk();
+			}
 		};
 
 		if (open) {
@@ -42,13 +46,13 @@ function ModalComp({ open = true, onOk = () => {}, onCancel = () => {}, children
 			<Container
 				style={{
 					position: "relative",
-					background: "var(--color-panel)", // Adapts to light or dark theme
-					color: "var(--color-text)", // Ensure text color adapts
+					background: "var(--color-panel)", // Solid background for modal
+					color: "var(--color-text)", // Ensure text adapts to theme
 					padding: "20px",
 					borderRadius: "8px",
 					maxWidth: "500px",
 					width: "100%",
-					boxShadow: "var(--shadow-lg)", // Radix box shadow token
+					boxShadow: "var(--shadow-lg)",
 				}}
 				onClick={(e) => e.stopPropagation()}
 			>
@@ -86,4 +90,5 @@ ModalComp.propTypes = {
 	onOk: PropTypes.func,
 	onCancel: PropTypes.func,
 	children: PropTypes.node,
+	title: PropTypes.string,
 };
