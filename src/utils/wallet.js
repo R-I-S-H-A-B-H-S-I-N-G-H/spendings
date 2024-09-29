@@ -67,7 +67,6 @@ export default class wallet {
 		if (typeof tag === "string") {
 			tag = this.tags.find((t) => t.id === tag);
 		}
-		console.log(tag);
 
 		if (!(transaction instanceof Transaction)) {
 			throw new Error("Transaction must be instance of Transaction");

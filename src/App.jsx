@@ -10,6 +10,7 @@ import { InputNumber, Input } from "antd";
 import { Button, Card, Container, Flex, Grid, Text } from "@radix-ui/themes";
 import MonthToggle from "./components/monthToggle/MonthToggle";
 import ModalComp from "./components/modal/ModalComp";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -50,13 +51,18 @@ function App() {
 	}
 
 	function addExpense() {
-		if (expenseObject.tag === null) throw new Error("Please select a tag");
-		if (expenseObject.amount === null) throw new Error("Please enter a valid amount");
-		if (expenseObject.name === null) throw new Error("Please enter a valid name");
-		const transaction = new Transaction(expenseObject.amount, transactionEnum.DEBIT, expenseObject.name);
-		walletObj.addTransaction(transaction, expenseObject.tag);
-		closeExpenseModal();
-		triggerRender();
+		try {
+			if (expenseObject.tag === null) throw new Error("Please select a tag");
+			if (expenseObject.amount === null) throw new Error("Please enter a valid amount");
+			if (expenseObject.name === null) throw new Error("Please enter a valid name");
+			const transaction = new Transaction(expenseObject.amount, transactionEnum.DEBIT, expenseObject.name);
+			walletObj.addTransaction(transaction, expenseObject.tag);
+			closeExpenseModal();
+			triggerRender();
+			toast.success("Successfully added expense");
+		} catch (e) {
+			toast.error(e.message);
+		}
 	}
 
 	function onAddExpenseHandler(tagId) {
@@ -65,18 +71,28 @@ function App() {
 	}
 
 	function addIncome() {
-		if (incomeObject.amount === null) throw new Error("Please enter a valid amount");
-		if (incomeObject.name === null) throw new Error("Please enter a valid name");
-		const transaction = new Transaction(incomeObject.amount, transactionEnum.CREDIT, incomeObject.name);
-		walletObj.addTransaction(transaction);
-		triggerRender();
-		closeIncomeModal();
+		try {
+			if (!incomeObject.amount) throw new Error("Please enter a valid amount");
+			if (!incomeObject.name) throw new Error("Please enter a valid name");
+			const transaction = new Transaction(incomeObject.amount, transactionEnum.CREDIT, incomeObject.name);
+			walletObj.addTransaction(transaction);
+			triggerRender();
+			closeIncomeModal();
+			toast.success("Successfully added income");
+		} catch (e) {
+			toast.error(e.message);
+		}
 	}
 
 	function addTag() {
-		walletObj.addTag(new Tag(tagObj.amount, tagObj.type, tagObj.name));
-		triggerRender();
-		closeTagModal();
+		try {
+			walletObj.addTag(new Tag(tagObj.amount, tagObj.type, tagObj.name));
+			triggerRender();
+			closeTagModal();
+			toast.success("Successfully added tag");
+		} catch (e) {
+			toast.error(e.message);
+		}
 	}
 
 	function updateTagAmount(tag, amount) {
@@ -106,8 +122,6 @@ function App() {
 	}
 
 	function onTransactionDelHandler(transactionId) {
-		// walletObj.deleteTransaction(transactionId);
-		// triggerRender();
 		setDeleteTransactionId(transactionId);
 		setTransactionDelModal(true);
 	}
@@ -130,6 +144,7 @@ function App() {
 				padding: "2rem",
 			}}
 		>
+			<Toaster containerStyle={{ zIndex: 999999 }} position="top-right" reverseOrder={false} />
 			<Flex align={"center"} justify={"center"}>
 				<Flex direction={window.innerWidth < 700 ? "column" : "row"} align={"center"} justify={"center"} gap="3">
 					<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
