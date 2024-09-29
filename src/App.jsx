@@ -9,7 +9,7 @@ import Badge from "./components/badge/Badge";
 import { InputNumber, Input } from "antd";
 import { Button, Card, Container, Flex, Grid, Text } from "@radix-ui/themes";
 import MonthToggle from "./components/monthToggle/MonthToggle";
-import Modal from "./components/modal/modal";
+import ModalComp from "./components/modal/ModalComp";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -129,7 +129,7 @@ function App() {
 				</Flex>
 			</Flex>
 
-			<Modal title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
+			<ModalComp title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
 				<div
 					style={{
 						display: "flex",
@@ -158,9 +158,9 @@ function App() {
 						}}
 					/>
 				</div>
-			</Modal>
+			</ModalComp>
 
-			<Modal title="Add Income" open={incomeCreateModal} onOk={addIncome} onCancel={closeIncomeModal}>
+			<ModalComp title="Add Income" open={incomeCreateModal} onOk={addIncome} onCancel={closeIncomeModal}>
 				<Flex direction="column" style={{ gap: "6px" }}>
 					<Text weight="medium">Enter Name</Text>
 					<Input
@@ -172,9 +172,9 @@ function App() {
 					<Text medium="bold">Enter Amount</Text>
 					<InputNumber style={{ width: "200px", fontSize: "17px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
 				</Flex>
-			</Modal>
+			</ModalComp>
 
-			<Modal title="Add Expense" open={expenseCreateModal} onOk={addExpense} onCancel={closeExpenseModal}>
+			<ModalComp title="Add Expense" open={expenseCreateModal} onOk={addExpense} onCancel={closeExpenseModal}>
 				<div
 					style={{
 						display: "flex",
@@ -210,7 +210,7 @@ function App() {
 						placeholder="Select an option"
 					/>
 				</div>
-			</Modal>
+			</ModalComp>
 
 			<div
 				style={{

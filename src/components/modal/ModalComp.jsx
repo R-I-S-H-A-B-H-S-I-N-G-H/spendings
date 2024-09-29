@@ -3,7 +3,7 @@ import styles from "./Modal.module.css";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 
-function Modal({ open = true, onOk = () => {}, onCancel = () => {}, children, title = "modal Title" }) {
+function ModalComp({ open = true, onOk = () => {}, onCancel = () => {}, children, title = "modal Title" }) {
 	useEffect(() => {
 		const handleEscape = (e) => {
 			if (e.key === "Escape") {
@@ -80,8 +80,8 @@ function Modal({ open = true, onOk = () => {}, onCancel = () => {}, children, ti
 	);
 }
 
-export default Modal;
-Modal.propTypes = {
+export default ModalComp;
+ModalComp.propTypes = {
 	open: PropTypes.bool.isRequired,
 	onOk: PropTypes.func,
 	onCancel: PropTypes.func,
