@@ -18,7 +18,7 @@ export default class wallet {
 		this.tags.push(this.defaultIncomeTag);
 		this.dateFilter = { month: new Date().getMonth(), year: new Date().getFullYear() };
 	}
-	WALLET_LC_ID = "wallet";
+	static WALLET_LC_ID = "wallet";
 
 	getTransactions() {
 		return this.transactions.filter((transaction) => {
