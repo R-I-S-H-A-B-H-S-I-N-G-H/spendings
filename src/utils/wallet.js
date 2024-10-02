@@ -185,8 +185,8 @@ export default class wallet {
 		wallet.saveWalletToLocalStorage(this);
 	}
 
-	static saveWalletToLocalStorage(wallet) {
-		localStorage.setItem(wallet.WALLET_LC_ID, JSON.stringify(wallet));
+	static saveWalletToLocalStorage(walletObj) {
+		localStorage.setItem(wallet.WALLET_LC_ID, JSON.stringify(walletObj));
 	}
 
 	static getWalletFromLocalStorage() {
