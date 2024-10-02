@@ -30,7 +30,10 @@ export default class wallet {
 	getTags() {
 		return this.tags.filter((tag) => {
 			if (tag.type == transactionEnum.CREDIT) return true;
-			const tagDate = new Date(tag.date);
+
+			// this is done to save guard this
+			// months tags
+			const tagDate = new Date(tag.date ?? "2024-10-02T05:50:41.487Z");
 			return tagDate.getMonth() == this.dateFilter.month && tagDate.getFullYear() == this.dateFilter.year;
 		});
 	}
