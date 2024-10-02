@@ -7,5 +7,6 @@ export default class Tag {
 		this.name = name;
 		this.amount = amount;
 		this.type = type;
+		this.date = new Date();
 	}
 }

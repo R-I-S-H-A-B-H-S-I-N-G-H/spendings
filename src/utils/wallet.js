@@ -27,12 +27,21 @@ export default class wallet {
 		});
 	}
 
+	getTags() {
+		return this.tags.filter((tag) => {
+			if (tag.type == transactionEnum.CREDIT) return true;
+			const tagDate = new Date(tag.date);
+			return tagDate.getMonth() == this.dateFilter.month && tagDate.getFullYear() == this.dateFilter.year;
+		});
+	}
+
 	deleteTransaction(id) {
 		this.transactions = this.transactions.filter((transaction) => {
 			console.log(transaction);
 
 			return transaction.id != id;
 		});
+		this.saveWalletToLocalStorage();
 	}
 
 	verifyTransaction(tag, transaction) {
@@ -61,11 +70,12 @@ export default class wallet {
 		if (transaction.type === transactionEnum.CREDIT) {
 			this.addIncome(transaction, this.defaultIncomeTag);
 		}
+		this.saveWalletToLocalStorage();
 	}
 
 	addExpense(transaction, tag) {
 		if (typeof tag === "string") {
-			tag = this.tags.find((t) => t.id === tag);
+			tag = this.getTags().find((t) => t.id === tag);
 		}
 
 		if (!(transaction instanceof Transaction)) {
@@ -75,11 +85,13 @@ export default class wallet {
 		transaction.addTag(tag);
 		this.verifyTransaction(tag, transaction);
 		this.transactions.push(transaction);
+		this.saveWalletToLocalStorage();
 	}
 
 	addIncome(transaction, tag) {
 		transaction.addTag(tag);
 		this.transactions.push(transaction);
+		this.saveWalletToLocalStorage();
 	}
 
 	addTag(tag) {
@@ -90,10 +102,7 @@ export default class wallet {
 		}
 
 		this.tags.push(tag);
-	}
-
-	getTags() {
-		return this.tags;
+		this.saveWalletToLocalStorage();
 	}
 
 	getTotalIncome() {
@@ -116,7 +125,7 @@ export default class wallet {
 
 	getTagTotalExpense() {
 		let amount = 0;
-		for (const ele of this.tags) {
+		for (const ele of this.getTags()) {
 			if (ele.type === transactionEnum.CREDIT) continue;
 			amount += ele.amount;
 		}
@@ -134,7 +143,7 @@ export default class wallet {
 
 	updateTagValue(tag, amount) {
 		if (typeof tag === "string") {
-			tag = this.tags.find((t) => t.id === tag);
+			tag = this.getTags().find((t) => t.id === tag);
 		}
 
 		const tagExpense = this.getTagAmount(tag);
@@ -142,10 +151,15 @@ export default class wallet {
 			throw new Error("Tag expense cannot be greater than tag amount");
 		}
 
-		for (const ele of this.tags) {
+		for (const ele of this.getTags()) {
 			if (ele.id !== tag.id) continue;
 			ele.amount = amount;
 		}
+		this.saveWalletToLocalStorage();
+	}
+
+	saveWalletToLocalStorage() {
+		wallet.saveWalletToLocalStorage(this);
 	}
 
 	static saveWalletToLocalStorage(wallet) {

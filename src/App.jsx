@@ -31,10 +31,6 @@ function App() {
 		const walletObjTmp = wallet.getWalletFromLocalStorage();
 
 		setWalletObj(walletObjTmp);
-
-		setInterval(() => {
-			wallet.saveWalletToLocalStorage(walletObjTmp);
-		}, 100);
 	});
 
 	useEffect(() => {
@@ -152,7 +148,6 @@ function App() {
 					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
 				</Flex>
 			</Flex>
-
 			<ModalComp
 				open={transactionDelModal}
 				title="Delete transaction?"
@@ -164,7 +159,6 @@ function App() {
 					closeDelTransactionModal();
 				}}
 			/>
-
 			<ModalComp title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
 				<div
 					style={{
@@ -195,7 +189,6 @@ function App() {
 					/>
 				</div>
 			</ModalComp>
-
 			<ModalComp title="Add Income" open={incomeCreateModal} onOk={addIncome} onCancel={closeIncomeModal}>
 				<Flex direction="column" style={{ gap: "6px" }}>
 					<Text weight="medium">Enter Name</Text>
@@ -209,7 +202,6 @@ function App() {
 					<InputNumber style={{ width: "200px", fontSize: "17px" }} placeholder="Enter a Amount" type="number" onChange={(num) => setIncomeObject({ ...incomeObject, amount: num })} />
 				</Flex>
 			</ModalComp>
-
 			<ModalComp title="Add Expense" open={expenseCreateModal} onOk={addExpense} onCancel={closeExpenseModal}>
 				<div
 					style={{
@@ -247,7 +239,6 @@ function App() {
 					/>
 				</div>
 			</ModalComp>
-
 			<div
 				style={{
 					display: "flex",
