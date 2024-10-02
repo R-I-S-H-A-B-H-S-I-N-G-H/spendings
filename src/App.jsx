@@ -24,6 +24,8 @@ function App() {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [transactionDelModal, setTransactionDelModal] = useState(false);
 	const [deleteTransactionId, setDeleteTransactionId] = useState();
+	const [deleteTagId, setDeleteTagId] = useState();
+	const [tagDelModal, setTagDelModal] = useState(false);
 
 	useEffect(() => {
 		if (walletObj) return;
@@ -122,6 +124,16 @@ function App() {
 		setTransactionDelModal(true);
 	}
 
+	function onTagDelHandler(id) {
+		setDeleteTagId(id);
+		setTagDelModal(true);
+	}
+
+	function closeDelTagModal() {
+		setDeleteTagId();
+		setTagDelModal(false);
+	}
+
 	function addIncomeHandler() {
 		setIncomeCreateModal(true);
 	}
@@ -129,6 +141,16 @@ function App() {
 	function closeDelTransactionModal() {
 		setDeleteTransactionId();
 		setTransactionDelModal(false);
+	}
+
+	function deleteTag(id) {
+		try {
+			walletObj.deleteTag(id);
+			toast.success("tag deleted");
+		} catch (e) {
+			toast.error(e.message);
+		}
+		closeDelTagModal();
 	}
 
 	return (
@@ -144,7 +166,7 @@ function App() {
 			<Flex align={"center"} justify={"center"}>
 				<Flex direction={window.innerWidth < 700 ? "column" : "row"} align={"center"} justify={"center"} gap="3">
 					<Badge heading={"Total Income"} mainContent={walletObj.getTotalIncome()} />
-					<Badge type={"secondary"} heading={"Non Alloted Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
+					<Badge type={"secondary"} heading={"Non Budget Balance"} mainContent={walletObj.getTotalIncome() - walletObj.getTagTotalExpense()} />
 					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
 				</Flex>
 			</Flex>
@@ -159,6 +181,18 @@ function App() {
 					closeDelTransactionModal();
 				}}
 			/>
+
+			<ModalComp
+				open={tagDelModal}
+				title="Delete Tag?"
+				onOk={() => {
+					deleteTag(deleteTagId);
+				}}
+				onCancel={() => {
+					closeDelTagModal();
+				}}
+			/>
+
 			<ModalComp title="Add Tag" open={tagCreateModal} onOk={addTag} onCancel={closeTagModal}>
 				<div
 					style={{
@@ -277,6 +311,7 @@ function App() {
 						isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
 						onTransactionDel={onTransactionDelHandler}
 						addIncome={addIncomeHandler}
+						onTagDel={onTagDelHandler}
 					/>
 				);
 			})}

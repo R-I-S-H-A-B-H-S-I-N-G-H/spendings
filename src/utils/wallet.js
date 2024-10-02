@@ -18,6 +18,7 @@ export default class wallet {
 		this.tags.push(this.defaultIncomeTag);
 		this.dateFilter = { month: new Date().getMonth(), year: new Date().getFullYear() };
 	}
+	WALLET_LC_ID = "testWallet";
 
 	getTransactions() {
 		return this.transactions.filter((transaction) => {
@@ -38,11 +39,30 @@ export default class wallet {
 		});
 	}
 
+	tagHasTransactions(tagId) {
+		for (const transaction of this.transactions) {
+			if (transaction.tag.id != tagId) continue;
+			console.log("TAG ID :: ", tagId);
+			console.log(transaction);
+
+			return true;
+		}
+		return false;
+	}
+
 	deleteTransaction(id) {
 		this.transactions = this.transactions.filter((transaction) => {
 			console.log(transaction);
 
 			return transaction.id != id;
+		});
+		this.saveWalletToLocalStorage();
+	}
+
+	deleteTag(id) {
+		if (this.tagHasTransactions(id)) throw new Error("Cannot Delete tag as it has transactions");
+		this.tags = this.tags.filter((tag) => {
+			return tag.id != id;
 		});
 		this.saveWalletToLocalStorage();
 	}
@@ -166,14 +186,14 @@ export default class wallet {
 	}
 
 	static saveWalletToLocalStorage(wallet) {
-		localStorage.setItem("wallet", JSON.stringify(wallet));
+		localStorage.setItem(wallet.WALLET_LC_ID, JSON.stringify(wallet));
 	}
 
 	static getWalletFromLocalStorage() {
 		try {
 			// throw new Error("Not Implemented");
-			const walletdata = JSON.parse(localStorage.getItem("wallet"));
-			return Object.assign(new wallet("helix"), walletdata);
+			const walletData = JSON.parse(localStorage.getItem(wallet.WALLET_LC_ID));
+			return Object.assign(new wallet("helix"), walletData);
 		} catch (error) {
 			console.error(error);
 

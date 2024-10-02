@@ -19,6 +19,7 @@ export default function Tag(props) {
 		isSelectedDateCurrentDate,
 		onTransactionDel = () => {},
 		addIncome = () => {},
+		onTagDel = () => {},
 	} = props;
 	if (!Array.isArray(transactions)) throw new Error("Transactions must be an array");
 	if (!totalIncome) totalIncome = 1e6;
@@ -62,7 +63,7 @@ export default function Tag(props) {
 			<Flex align={"center"} justify={"between"}>
 				{!isCredit() && (
 					<>
-						<Badge size={"3"} color="amber">{`${name} ${getTagAmount()}`}</Badge>
+						<Badge onClick={() => onTagDel(id)} size={"3"} color="amber">{`${name} ${getTagAmount()}`}</Badge>
 						<Button disabled={!isSelectedDateCurrentDate} size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
 							Add Expense
 						</Button>
