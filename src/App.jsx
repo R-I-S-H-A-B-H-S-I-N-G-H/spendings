@@ -296,26 +296,53 @@ function App() {
 
 			<MonthToggle date={selectedDate} onChange={setSelectedDate} />
 
-			{walletObj.getTags().map((tag) => {
-				return (
-					<TagComp
-						totalIncome={walletObj.getTotalIncome()}
-						type={tag.type}
-						key={tag.id}
-						id={tag.id}
-						amount={tag.amount}
-						name={tag.name}
-						transactions={walletObj.getTransactions()}
-						updateTagAmount={updateTagAmount}
-						addExpense={onAddExpenseHandler}
-						isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
-						onTransactionDel={onTransactionDelHandler}
-						addIncome={addIncomeHandler}
-						onTagDel={onTagDelHandler}
-						tagDebitAmount={walletObj.getDebitAmount(tag.id)}
-					/>
-				);
-			})}
+			{walletObj
+				.getTags()
+				.filter((tag) => walletObj.getDebitAmount(tag.id) != tag.amount)
+				.map((tag) => {
+					return (
+						<TagComp
+							totalIncome={walletObj.getTotalIncome()}
+							type={tag.type}
+							key={tag.id}
+							id={tag.id}
+							amount={tag.amount}
+							name={tag.name}
+							transactions={walletObj.getTransactions()}
+							updateTagAmount={updateTagAmount}
+							addExpense={onAddExpenseHandler}
+							isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
+							onTransactionDel={onTransactionDelHandler}
+							addIncome={addIncomeHandler}
+							onTagDel={onTagDelHandler}
+							tagDebitAmount={walletObj.getDebitAmount(tag.id)}
+						/>
+					);
+				})}
+
+			{walletObj
+				.getTags()
+				.filter((tag) => walletObj.getDebitAmount(tag.id) == tag.amount)
+				.map((tag) => {
+					return (
+						<TagComp
+							totalIncome={walletObj.getTotalIncome()}
+							type={tag.type}
+							key={tag.id}
+							id={tag.id}
+							amount={tag.amount}
+							name={tag.name}
+							transactions={walletObj.getTransactions()}
+							updateTagAmount={updateTagAmount}
+							addExpense={onAddExpenseHandler}
+							isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
+							onTransactionDel={onTransactionDelHandler}
+							addIncome={addIncomeHandler}
+							onTagDel={onTagDelHandler}
+							tagDebitAmount={walletObj.getDebitAmount(tag.id)}
+						/>
+					);
+				})}
 		</div>
 	);
 }
