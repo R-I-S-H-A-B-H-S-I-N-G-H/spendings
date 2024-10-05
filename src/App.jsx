@@ -298,31 +298,7 @@ function App() {
 
 			{walletObj
 				.getTags()
-				.filter((tag) => walletObj.getDebitAmount(tag.id) != tag.amount)
-				.map((tag) => {
-					return (
-						<TagComp
-							totalIncome={walletObj.getTotalIncome()}
-							type={tag.type}
-							key={tag.id}
-							id={tag.id}
-							amount={tag.amount}
-							name={tag.name}
-							transactions={walletObj.getTransactions()}
-							updateTagAmount={updateTagAmount}
-							addExpense={onAddExpenseHandler}
-							isSelectedDateCurrentDate={isSelectedDateCurrentDate()}
-							onTransactionDel={onTransactionDelHandler}
-							addIncome={addIncomeHandler}
-							onTagDel={onTagDelHandler}
-							tagDebitAmount={walletObj.getDebitAmount(tag.id)}
-						/>
-					);
-				})}
-
-			{walletObj
-				.getTags()
-				.filter((tag) => walletObj.getDebitAmount(tag.id) == tag.amount)
+				.sort((tag1, tag2) => -(tag1.amount / walletObj.getDebitAmount(tag1.id) - tag2.amount / walletObj.getDebitAmount(tag2.id)))
 				.map((tag) => {
 					return (
 						<TagComp

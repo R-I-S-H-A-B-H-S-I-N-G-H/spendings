@@ -66,9 +66,7 @@ export default function Tag(props) {
 					<>
 						<Flex direction={"column"} gap={`1`}>
 							<Badge style={{ width: "fit-content" }} onClick={() => onTagDel(id)} size={"3"} color="amber">{`${name} `}</Badge>
-							{getTagTransactions().length > 0 && !isCredit() && (
-								<Badge onClick={() => onTagDel(id)} size={"2"} color="brown">{`${amount} - ${tagDebitAmount} = ${amount - tagDebitAmount}`}</Badge>
-							)}
+							<Badge onClick={() => onTagDel(id)} size={"2"} color="brown">{`${amount} - ${tagDebitAmount} = ${amount - tagDebitAmount}`}</Badge>
 						</Flex>
 						<Button disabled={!isSelectedDateCurrentDate} size={"2"} variant="soft" color="red" onClick={() => addExpense(id)}>
 							log
