@@ -11,10 +11,14 @@ export default function Transaction(props) {
 
 	return (
 		<div style={{ marginTop: ".5rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "5px" }}>
-			<Text style={{ flex: 1.5 }}>{comment}</Text>
-			<Text weight={"bold"} color={isCredit() ? "green" : "red"} style={{ flex: 1 }}>{`${!isCredit() ? "-" : "+"}${amount}`}</Text>
-			<Text style={{ flex: 1 }}>{moment(date).fromNow()}</Text>
-			<Button variant="outline" color="red" onClick={() => onTransactionDel(id)}>
+			<Text size="3" style={{ flex: 1.3 }}>
+				{comment}
+			</Text>
+			<Text size="3" weight={"bold"} color={isCredit() ? "green" : "red"} style={{ flex: 1 }}>{`${!isCredit() ? "-" : "+"}${amount}`}</Text>
+			<Text size="2" style={{ flex: 2 }}>
+				{moment(date).fromNow()}
+			</Text>
+			<Button size="1" variant="outline" color="red" onClick={() => onTransactionDel(id)}>
 				{"-"}
 			</Button>
 		</div>
