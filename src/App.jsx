@@ -312,6 +312,7 @@ function App() {
 						onTransactionDel={onTransactionDelHandler}
 						addIncome={addIncomeHandler}
 						onTagDel={onTagDelHandler}
+						tagDebitAmount={walletObj.getDebitAmount(tag.id)}
 					/>
 				);
 			})}

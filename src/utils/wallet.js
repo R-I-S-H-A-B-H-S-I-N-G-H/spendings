@@ -181,6 +181,16 @@ export default class wallet {
 		this.saveWalletToLocalStorage();
 	}
 
+	getDebitAmount(tagId) {
+		let amount = 0;
+		for (const ele of this.getTransactions()) {
+			if (ele.tag.id !== tagId) continue;
+			if (ele.type === transactionEnum.CREDIT) continue;
+			amount += ele.amount;
+		}
+		return amount;
+	}
+
 	saveWalletToLocalStorage() {
 		wallet.saveWalletToLocalStorage(this);
 	}
