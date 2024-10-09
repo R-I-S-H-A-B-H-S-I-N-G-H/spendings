@@ -195,6 +195,40 @@ export default class wallet {
 		wallet.saveWalletToLocalStorage(this);
 	}
 
+	getTotalSpendingLastNDays(n) {
+		const currentDate = new Date();
+		const dailySpending = [];
+
+		for (let i = 0; i < n; i++) {
+			const dateToCheck = new Date();
+			dateToCheck.setDate(currentDate.getDate() - i);
+
+			// Get the transactions for that specific date
+			const transactionsForDay = this.transactions.filter((transaction) => {
+				const transactionDate = new Date(transaction.date);
+				return wallet.isDateEqual(dateToCheck, transactionDate) && transaction.type === transactionEnum.DEBIT;
+			});
+
+			// Sum the amounts for that day
+			const totalForDay = transactionsForDay.reduce((total, transaction) => {
+				return total + transaction.amount;
+			}, 0);
+
+			dailySpending.push({ date: dateToCheck.toDateString(), total: totalForDay });
+		}
+
+		return dailySpending;
+	}
+
+	/**
+	 *
+	 * @param {Date} date1
+	 * @param {Date} date2
+	 */
+	static isDateEqual(date1, date2) {
+		return date1.getDay() === date2.getDay() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+	}
+
 	static saveWalletToLocalStorage(walletObj) {
 		localStorage.setItem(wallet.WALLET_LC_ID, JSON.stringify(walletObj));
 	}

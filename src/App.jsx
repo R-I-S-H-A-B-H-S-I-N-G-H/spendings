@@ -11,6 +11,8 @@ import { Button, Card, Container, Flex, Grid, Text } from "@radix-ui/themes";
 import MonthToggle from "./components/monthToggle/MonthToggle";
 import ModalComp from "./components/modal/ModalComp";
 import toast, { Toaster } from "react-hot-toast";
+import Bar from "./components/charts/bar/Bar";
+import Line from "./components/charts/line/Line";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -26,6 +28,20 @@ function App() {
 	const [deleteTransactionId, setDeleteTransactionId] = useState();
 	const [deleteTagId, setDeleteTagId] = useState();
 	const [tagDelModal, setTagDelModal] = useState(false);
+
+	console.log();
+
+	function getLast7DayExpenseChartData() {
+		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(7) ?? [];
+		let labels = [];
+		let data = [];
+		for (let ele of last7DaysSpending) {
+			labels.push(ele.date);
+			data.push(ele.total);
+		}
+
+		return { labels: labels.reverse(), data: data.reverse() };
+	}
 
 	useEffect(() => {
 		if (walletObj) return;
@@ -170,6 +186,13 @@ function App() {
 					<Badge type={"ternary"} heading={"Total Spendings"} mainContent={walletObj.getTotalExpense()} />
 				</Flex>
 			</Flex>
+			<div
+				style={{
+					width: "100%",
+				}}
+			>
+				<Line {...getLast7DayExpenseChartData()} />
+			</div>
 			<ModalComp
 				open={transactionDelModal}
 				title="Delete transaction?"
