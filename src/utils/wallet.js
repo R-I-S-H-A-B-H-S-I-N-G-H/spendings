@@ -1,3 +1,4 @@
+import axios from "axios";
 import transactionEnum from "./enums/transactionEnum";
 import Tag from "./tag";
 import Transaction from "./transaction";
@@ -42,8 +43,6 @@ export default class wallet {
 	tagHasTransactions(tagId) {
 		for (const transaction of this.transactions) {
 			if (transaction.tag.id != tagId) continue;
-			console.log("TAG ID :: ", tagId);
-			console.log(transaction);
 
 			return true;
 		}
@@ -52,8 +51,6 @@ export default class wallet {
 
 	deleteTransaction(id) {
 		this.transactions = this.transactions.filter((transaction) => {
-			console.log(transaction);
-
 			return transaction.id != id;
 		});
 		this.saveWalletToLocalStorage();
@@ -230,7 +227,13 @@ export default class wallet {
 	}
 
 	static saveWalletToLocalStorage(walletObj) {
-		localStorage.setItem(wallet.WALLET_LC_ID, JSON.stringify(walletObj));
+		const strWalletObj = JSON.stringify(walletObj);
+		// pushing to s3
+		axios.post("https://go-microservice-k2dn.onrender.com/wallet/sync", walletObj, {
+			withCredentials: true,
+		});
+
+		localStorage.setItem(wallet.WALLET_LC_ID, strWalletObj);
 	}
 
 	static getWalletFromLocalStorage() {

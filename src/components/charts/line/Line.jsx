@@ -2,11 +2,7 @@ import Chart from "chart.js/auto";
 import { Line as LineWrapper } from "react-chartjs-2";
 
 export default function Line(props) {
-	console.log("PROPS", props);
-
 	const { labels = ["data1", "data2"], data = [1, -2] } = props;
-
-	console.log(props);
 
 	return (
 		<LineWrapper

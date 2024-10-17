@@ -29,8 +29,6 @@ function App() {
 	const [deleteTagId, setDeleteTagId] = useState();
 	const [tagDelModal, setTagDelModal] = useState(false);
 
-	console.log();
-
 	function getLast7DayExpenseChartData() {
 		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(7) ?? [];
 		let labels = [];
