@@ -30,7 +30,7 @@ function App() {
 	const [tagDelModal, setTagDelModal] = useState(false);
 
 	function getLast7DayExpenseChartData() {
-		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(7) ?? [];
+		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(14) ?? [];
 		let labels = [];
 		let data = [];
 		for (let ele of last7DaysSpending) {
@@ -189,7 +189,8 @@ function App() {
 					width: "100%",
 				}}
 			>
-				<Line {...getLast7DayExpenseChartData()} />
+				{/* <Line {...getLast7DayExpenseChartData()} /> */}
+				<Bar {...getLast7DayExpenseChartData()} />
 			</div>
 			<ModalComp
 				open={transactionDelModal}

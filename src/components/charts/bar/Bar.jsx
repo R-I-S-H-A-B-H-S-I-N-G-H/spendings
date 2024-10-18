@@ -3,7 +3,7 @@ import { Bar as BarWrapper } from "react-chartjs-2";
 
 export default function Bar(props) {
 	// just want to show bars
-	const { labels = ["a", "b"], data = [1, 10] } = props;
+	const { labels = [], data = [] } = props;
 
 	return (
 		<BarWrapper
@@ -13,6 +13,8 @@ export default function Bar(props) {
 					{
 						label: "",
 						data,
+						backgroundColor: "#045736",
+						borderRadius: 3,
 					},
 				],
 			}}

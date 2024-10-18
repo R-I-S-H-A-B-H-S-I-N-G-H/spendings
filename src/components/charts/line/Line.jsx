@@ -16,7 +16,7 @@ export default function Line(props) {
 						tension: 0.4, // Adds smoothness to the line
 						backgroundColor: "rgba(255, 99, 132, 0.5)", // Adjust the color of the line
 						borderColor: "rgba(255, 99, 132, 1)", // Adjust the color of the border
-						borderWidth: 5, // Adjust the width of the border
+						// borderWidth: 5, // Adjust the width of the border
 					},
 				],
 			}}
