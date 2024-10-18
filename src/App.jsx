@@ -30,7 +30,7 @@ function App() {
 	const [tagDelModal, setTagDelModal] = useState(false);
 
 	function getLast7DayExpenseChartData() {
-		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(14) ?? [];
+		const last7DaysSpending = walletObj?.getTotalSpendingLastNDays(7) ?? [];
 		let labels = [];
 		let data = [];
 		for (let ele of last7DaysSpending) {

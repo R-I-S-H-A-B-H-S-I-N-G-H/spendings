@@ -16,7 +16,7 @@ export default function Transaction(props) {
 			</Text>
 			<Text align={"center"} size="2" weight={"bold"} color={isCredit() ? "green" : "red"} style={{ flex: 2 }}>{`${!isCredit() ? "-" : "+"}${amount}`}</Text>
 			<Text size="2" style={{ padding: "0rem .5rem" }}>
-				{moment(date).fromNow()}
+				{moment(date).format("DD/MM/YYYY")}
 			</Text>
 			<Button size="1" variant="outline" color="red" onClick={() => onTransactionDel(id)}>
 				{"-"}

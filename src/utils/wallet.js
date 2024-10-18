@@ -22,11 +22,13 @@ export default class wallet {
 	static WALLET_LC_ID = "wallet";
 
 	getTransactions() {
-		return this.transactions.filter((transaction) => {
-			const transactionDate = new Date(transaction.date);
+		return this.transactions
+			.sort((a, b) => new Date(b.date) - new Date(a.date))
+			.filter((transaction) => {
+				const transactionDate = new Date(transaction.date);
 
-			return transactionDate.getMonth() == this.dateFilter.month && transactionDate.getFullYear() == this.dateFilter.year;
-		});
+				return transactionDate.getMonth() == this.dateFilter.month && transactionDate.getFullYear() == this.dateFilter.year;
+			});
 	}
 
 	getTags() {
@@ -194,27 +196,27 @@ export default class wallet {
 
 	getTotalSpendingLastNDays(n) {
 		const currentDate = new Date();
-		const dailySpending = [];
+		const dateToSpendingMap = {};
+
+		this.getTransactions().forEach((transaction) => {
+			if (transaction.type !== transactionEnum.DEBIT) return;
+			const transactionDate = new Date(transaction.date);
+			const dateKey = new Date();
+			dateKey.setFullYear(transactionDate.getFullYear(), transactionDate.getMonth(), transactionDate.getDate());
+			dateKey.setHours(0, 0, 0, 0);
+			dateToSpendingMap[dateKey] = (dateToSpendingMap[dateKey] ?? 0) + transaction.amount;
+		});
+
+		const resArr = [];
 
 		for (let i = 0; i < n; i++) {
 			const dateToCheck = new Date();
 			dateToCheck.setDate(currentDate.getDate() - i);
-
-			// Get the transactions for that specific date
-			const transactionsForDay = this.transactions.filter((transaction) => {
-				const transactionDate = new Date(transaction.date);
-				return wallet.isDateEqual(dateToCheck, transactionDate) && transaction.type === transactionEnum.DEBIT;
-			});
-
-			// Sum the amounts for that day
-			const totalForDay = transactionsForDay.reduce((total, transaction) => {
-				return total + transaction.amount;
-			}, 0);
-
-			dailySpending.push({ date: dateToCheck.toDateString(), total: totalForDay });
+			dateToCheck.setHours(0, 0, 0, 0);
+			resArr.push({ date: dateToCheck.toDateString(), total: dateToSpendingMap[dateToCheck] ?? 0 });
 		}
 
-		return dailySpending;
+		return resArr;
 	}
 
 	/**
