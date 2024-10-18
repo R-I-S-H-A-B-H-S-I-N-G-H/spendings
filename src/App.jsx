@@ -12,7 +12,7 @@ import MonthToggle from "./components/monthToggle/MonthToggle";
 import ModalComp from "./components/modal/ModalComp";
 import toast, { Toaster } from "react-hot-toast";
 import Bar from "./components/charts/bar/Bar";
-import Line from "./components/charts/line/Line";
+import LineChart from "./components/charts/line/LineChart";
 
 function App() {
 	const [walletObj, setWalletObj] = useState(null);
@@ -187,9 +187,10 @@ function App() {
 			<div
 				style={{
 					width: "100%",
+					margin: "2rem 0",
 				}}
 			>
-				{/* <Line {...getLast7DayExpenseChartData()} /> */}
+				{/* <LineChart {...getLast7DayExpenseChartData()} /> */}
 				<Bar {...getLast7DayExpenseChartData()} />
 			</div>
 			<ModalComp

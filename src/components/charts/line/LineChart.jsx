@@ -1,24 +1,21 @@
 import Chart from "chart.js/auto";
-import { Bar as BarWrapper } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
-export default function Bar(props) {
+export default function LineChart(props) {
 	const { labels = [], data = [] } = props;
 
-	// Calculate the mean of the data
-	const meanValue = data.reduce((acc, value) => acc + value, 0) / data.length;
-
 	return (
-		<BarWrapper
+		<Line
 			data={{
 				labels,
 				datasets: [
 					{
-						label: "Spending",
-						data,
-						backgroundColor: data.map(
-							(value) => (value > meanValue ? "#045736" : "#045736"), // Red for values above mean
-						),
-						borderRadius: 3,
+						label: "",
+						data, // Zero entries will appear as points on the x-axis
+						fill: true,
+						borderColor: "#045736",
+						backgroundColor: "rgba(4, 87, 54, 0.1)",
+						pointBackgroundColor: data.map((value) => (value === 0 ? "red" : "#045736")), // Highlight zero points in red
 					},
 				],
 			}}
@@ -32,6 +29,7 @@ export default function Bar(props) {
 						display: false,
 					},
 				},
+
 				plugins: {
 					legend: {
 						display: false, // Hide the legend
@@ -39,7 +37,7 @@ export default function Bar(props) {
 					tooltip: {
 						callbacks: {
 							label: function (context) {
-								return context.raw === 0 ? "" : context.raw;
+								return context.raw === 0 ? "No spending" : context.raw;
 							},
 						},
 					},
